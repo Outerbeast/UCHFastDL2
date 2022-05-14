@@ -1,3 +1,5 @@
+// Outerbeast: This custom entity is obsolete since 5.23/24. 
+// Use item_generic with solid key and min/maxhullsize values set to create a blocker, then killtarget.
 class func_wall_custom : ScriptBaseEntity {
 
 	bool KeyValue( const string& in szKey, const string& in szValue )
