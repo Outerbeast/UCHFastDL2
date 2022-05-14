@@ -73,55 +73,5 @@ void poll_check(){
       
       g_Scheduler.SetTimeout( "poll_check", 0.1f );
     }
-  }else if(m_sMap == "dy_fubar"){
-    if(entityId_1 == 0){
-      for( int i = 0; i < g_Engine.maxEntities; ++i ) {
-        CBaseEntity@ pEntity = g_EntityFuncs.Instance( i );
-        if( pEntity is null ) continue;
-        
-        string s_Targetname = pEntity.GetTargetname();
-        if(s_Targetname == "turretdoor"){
-          entityId_1 = i;
-          break;
-        }
-      }
-    }
-    
-    CBaseEntity@ pEntity = g_EntityFuncs.Instance( entityId_1 );
-    if( pEntity is null ) return;
-    
-    if(entityId_2 == 0){
-      if(pEntity.pev.origin.z > 1){
-        entityId_2 = 1;
-      }
-      g_Scheduler.SetTimeout( "poll_check", 1.0f );
-    }else{
-      if(pEntity.pev.origin.z < 1){
-        //Teleport people to battle area
-        for( int iPlayer = 1; iPlayer <= g_Engine.maxClients; ++iPlayer ){
-          @pPlayer = g_PlayerFuncs.FindPlayerByIndex( iPlayer );
-          
-          if( pPlayer is null || !pPlayer.IsConnected() || !pPlayer.IsAlive())
-            continue;
-          
-          if(
-              pPlayer.pev.origin.y < -1424 ||
-              (pPlayer.pev.origin.y < -1008 && pPlayer.pev.origin.x > 385) ||
-              (
-                  pPlayer.pev.origin.x >= 292 &&
-                  pPlayer.pev.origin.x <= 385 &&
-                  pPlayer.pev.origin.y >= -1424 &&
-                  pPlayer.pev.origin.y <= -1200
-              )
-          ){
-            pPlayer.pev.origin.x = 212;
-            pPlayer.pev.origin.y = -1356;
-            pPlayer.pev.origin.z = 1800;
-          }
-        }
-      }else{
-        g_Scheduler.SetTimeout( "poll_check", 1.0f );
-      }
-    }
   }
 }
